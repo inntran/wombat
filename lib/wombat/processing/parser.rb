@@ -3,7 +3,7 @@ require 'wombat/property/locators/factory'
 require 'wombat/processing/node_selector'
 require 'mechanize'
 require 'restclient'
-GOOGLEBOT_UA = "Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)"
+CF_BOT_UA = "Amazon CloudFront"
 
 module Nokogiri
   module XML
@@ -27,7 +27,7 @@ module Wombat
             end
           }
         }
-        @mechanize.user_agent = GOOGLEBOT_UA
+        @mechanize.user_agent = CF_BOT_UA
         @mechanize.set_proxy(*Wombat.proxy_args) if Wombat.proxy_args
       end
 
@@ -50,7 +50,7 @@ module Wombat
             parser = @page.parser
             parser.headers = @page.header
           else
-            @page = RestClient.get(url, user_agent: GOOGLEBOT_UA) unless @page
+            @page = RestClient.get(url, user_agent: CF_BOT_UA) unless @page
             parser = Nokogiri::XML @page
             parser.headers = @page.headers
           end
