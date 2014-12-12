@@ -50,7 +50,7 @@ module Wombat
             parser = @page.parser
             parser.headers = @page.header
           else
-            @page = RestClient.get(url, user_agent: CF_BOT_UA) unless @page
+            @page = RestClient.get(url, user_agent: CF_BOT_UA, :"X-Forwarded-For" => "66.249.64.139") unless @page
             parser = Nokogiri::XML @page
             parser.headers = @page.headers
           end
